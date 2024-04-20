@@ -21,6 +21,7 @@ const createRandomRoom = async () => {
     cache: 'no-store',
   });
   const data: RoomDetails = await res.json();
+  console.log('Response data:', data);
   const { roomId } = data.data;
   return roomId;
 };

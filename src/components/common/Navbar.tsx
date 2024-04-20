@@ -2,6 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
+import HomePage from "@/components/wallet/HomePage";
+import ConnectWalletButton from "@/components/wallet/ConnectWalletButton";
+
 
 type NavbarProps = {};
 
@@ -17,6 +20,9 @@ const Navbar: React.FC<NavbarProps> = () => {
         quality={100}
         priority
       />
+      <ConnectWalletButton>
+      <HomePage/>
+      </ConnectWalletButton>
     </header>
   );
 };
