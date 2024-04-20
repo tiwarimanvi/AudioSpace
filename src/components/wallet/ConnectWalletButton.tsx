@@ -1,3 +1,4 @@
+// 'use server';
 import { TonConnectUIProvider, THEME } from '@tonconnect/ui-react';
 
 const ConnectWalletButton = ({ children }) => {
