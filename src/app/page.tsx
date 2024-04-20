@@ -1,6 +1,6 @@
 'use server';
 import IntroPage from '@/components/IntroPage/IntroPage';
-
+import { TonConnectUIProvider, THEME } from '@tonconnect/ui-react';
 interface RoomDetails {
   message: string;
   data: {
@@ -29,4 +29,5 @@ const createRandomRoom = async () => {
 export default async function Home() {
   const roomId = await createRandomRoom();
   return <IntroPage roomId={roomId} />;
+ 
 }

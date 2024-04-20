@@ -1,5 +1,7 @@
 'use client';
-
+import {TonConnectButton,useTonConnectUI, useTonWallet} from "@tonconnect/ui-react";
+import ConnectWalletButton from "@/components/wallet/ConnectWalletButton";
+import Ss from "@/components/wallet/Ss";
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -26,6 +28,8 @@ import {
 type lobbyProps = {};
 
 const Lobby = ({ params }: { params: { roomId: string } }) => {
+  // const wallet = useTonWallet();
+  // const [tonConnectUi] = useTonConnectUI();
   // Local States
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const avatarUrl = useStore((state) => state.avatarUrl);
@@ -34,6 +38,7 @@ const Lobby = ({ params }: { params: { roomId: string } }) => {
   const userDisplayName = useStore((state) => state.userDisplayName);
   const [token, setToken] = useState<string>('');
   const [isJoining, setIsJoining] = useState<boolean>(false);
+  
 
   const { push } = useRouter();
 
@@ -151,13 +156,13 @@ const Lobby = ({ params }: { params: { roomId: string } }) => {
                 }}
                 type='text'
                 placeholder='Enter your name'
-                className='flex-1 bg-transparent py-3 outline-none'
+                 className='flex-1 bg-transparent py-3 outline-none'
               />
             </div>
           </div>
         </div>
         <div className='flex items-center w-full'>
-          <button
+          {/*<button
             className='flex items-center justify-center bg-[#246BFD] text-slate-100 rounded-md p-2 mt-2 w-full'
             onClick={handleStartSpaces}
           >
@@ -171,10 +176,15 @@ const Lobby = ({ params }: { params: { roomId: string } }) => {
                 className='w-6 h-6 ml-1'
               />
             )}
-          </button>
+          </button> */}
+          <ConnectWalletButton>
+            <Ss onClick={handleStartSpaces}/>
+            </ConnectWalletButton>
         </div>
       </div>
+      
     </main>
+    
   );
 };
 export default Lobby;
