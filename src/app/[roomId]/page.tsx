@@ -21,6 +21,7 @@ import useStore from '@/store/slices';
 import { toast } from 'react-hot-toast';
 import { Role } from '@huddle01/server-sdk/auth';
 import Chat from '@/components/Chat/Chat';
+
 import { metadata } from '../layout';
 // import Chat from '@/components/Chat/Chat';
 
@@ -95,11 +96,14 @@ const Home = ({ params }: { params: { roomId: string } }) => {
   return (
     <section className='bg-audio flex h-screen items-center justify-center w-full relative  text-slate-100'>
       <div className='flex items-center justify-center w-full'>
+        
         <GridLayout />
         <Sidebar />
+      
         <div className='absolute right-4 bottom-20'>
           {showAcceptRequest && <AcceptRequest peerId={requestedPeerId} />}
         </div>
+        
       </div>
       {isChatOpen && <Chat />}
       <BottomBar />

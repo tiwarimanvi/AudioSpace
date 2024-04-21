@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("min-h-screen relative font-inter", inter.className)}>
+        
         <Navbar />
         <HuddleContextProvider>{children}</HuddleContextProvider>
       </body>
