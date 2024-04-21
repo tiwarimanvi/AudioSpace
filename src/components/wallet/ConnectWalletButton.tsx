@@ -1,7 +1,11 @@
 // 'use server';
 import { TonConnectUIProvider, THEME } from '@tonconnect/ui-react';
+import React, { ReactNode } from 'react'; // Import React and ReactNode
 
-const ConnectWalletButton = ({  }) => {
+interface ConnectWalletButtonProps {
+  children?: ReactNode; // Explicitly type children prop as ReactNode
+}
+const ConnectWalletButton = ({ children }: ConnectWalletButtonProps) => {
   return (
     <TonConnectUIProvider
       manifestUrl="https://ton-connect.github.io/demo-dapp-with-wallet/tonconnect-manifest.json"
@@ -32,7 +36,7 @@ const ConnectWalletButton = ({  }) => {
         twaReturnUrl: 'https://t.me/tc_twa_demo_bot/start'
       }}
     >
-      {}
+      {children}
     </TonConnectUIProvider>
   );
 };
