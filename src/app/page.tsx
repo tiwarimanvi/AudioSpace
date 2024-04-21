@@ -1,6 +1,6 @@
 'use server';
 import IntroPage from '@/components/IntroPage/IntroPage';
-import { TonConnectUIProvider, THEME } from '@tonconnect/ui-react';
+import "@twa-dev/sdk";
 interface RoomDetails {
   message: string;
   data: {
