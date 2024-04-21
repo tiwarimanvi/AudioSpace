@@ -5,7 +5,6 @@ import Image from "next/image";
 import HomePage from "@/components/wallet/HomePage";
 import ConnectWalletButton from "@/components/wallet/ConnectWalletButton";
 
-
 type NavbarProps = {};
 
 const Navbar: React.FC<NavbarProps> = () => {
