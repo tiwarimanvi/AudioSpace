@@ -1,20 +1,39 @@
 'use client';
 
+// import React, { useEffect } from 'react';
+// import { useRouter } from 'next/navigation';
+
+
+// type LobbyPageProps = {
+//   roomId: string;
+// };
+
+// const IntroPage: React.FC<LobbyPageProps> = ({ roomId }) => {
+//   const { push } = useRouter();
+
+//   useEffect(() => {
+//     push(`/${roomId}/lobby`);
+//   }, []);
+
+//   return null;
+// };
+// export default IntroPage;
+// 'use client';
+
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-
-type LobbyPageProps = {
+type IntroPageProps = {
   roomId: string;
 };
 
-const IntroPage: React.FC<LobbyPageProps> = ({ roomId }) => {
-  const { push } = useRouter();
-
+const IntroPage: React.FC<IntroPageProps> = ({ roomId }) => {
   useEffect(() => {
-    push(`/${roomId}/lobby`);
-  }, []);
+    window.location.href = `/${roomId}/lobby`;
+  }, [roomId]); // Add roomId to the dependency array
 
+  // Since the redirection happens with window.location.href, you don't need to return any JSX
   return null;
 };
+
 export default IntroPage;
