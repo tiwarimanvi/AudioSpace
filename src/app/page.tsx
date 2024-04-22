@@ -1,6 +1,7 @@
 'use server';
 import IntroPage from '@/components/IntroPage/IntroPage';
 import "@twa-dev/sdk";
+
 interface RoomDetails {
   message: string;
   data: {
