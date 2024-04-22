@@ -1,12 +1,15 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 // Components
-import BottomBar from '@/components/BottomBar/BottomBar';
-import Sidebar from '@/components/Sidebar/Sidebar';
-import GridLayout from '@/components/GridLayout/GridLayout';
-import Prompts from '@/components/common/Prompts';
+import Polling from "@/components/Polling/Polling";
+import ViewPolls from '@/components/Polling/ViewPolls'; // Import ViewPolls component
+
+import BottomBar from "@/components/BottomBar/BottomBar";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import GridLayout from "@/components/GridLayout/GridLayout";
+import Prompts from "@/components/common/Prompts";
 import {
   useRoom,
   useLocalPeer,
@@ -14,18 +17,23 @@ import {
   usePeerIds,
   useHuddle01,
   useDataMessage,
-} from '@huddle01/react/hooks';
-import { useRouter } from 'next/navigation';
-import AcceptRequest from '@/components/Modals/AcceptRequest';
-import useStore from '@/store/slices';
-import { toast } from 'react-hot-toast';
-import { Role } from '@huddle01/server-sdk/auth';
-import Chat from '@/components/Chat/Chat';
+} from "@huddle01/react/hooks";
+import { useRouter } from "next/navigation";
+import AcceptRequest from "@/components/Modals/AcceptRequest";
+import useStore from "@/store/slices";
+import { toast } from "react-hot-toast";
+import { Role } from "@huddle01/server-sdk/auth";
+import Chat from "@/components/Chat/Chat";
 
-import { metadata } from '../layout';
+import { metadata } from "../layout";
 // import Chat from '@/components/Chat/Chat';
 
 const Home = ({ params }: { params: { roomId: string } }) => {
+  // State to manage visibility of the polling component
+  const [isPollingOpen, setIsPollingOpen] = useState<boolean>(false);
+  const [isViewPollsOpen, setIsViewPollsOpen] = useState<boolean>(false); // Initial visibility
+
+
   const { state } = useRoom({
     onLeave: () => {
       push(`/${params.roomId}/lobby`);
@@ -33,7 +41,7 @@ const Home = ({ params }: { params: { roomId: string } }) => {
   });
   const { push } = useRouter();
   // const { changePeerRole } = useAcl();
-  const [requestedPeerId, setRequestedPeerId] = useState('');
+  const [requestedPeerId, setRequestedPeerId] = useState("");
   const { showAcceptRequest, setShowAcceptRequest } = useStore();
   const addChatMessage = useStore((state) => state.addChatMessage);
   const addRequestedPeers = useStore((state) => state.addRequestedPeers);
@@ -52,7 +60,7 @@ const Home = ({ params }: { params: { roomId: string } }) => {
   const { huddleClient } = useHuddle01();
 
   useEffect(() => {
-    if (state === 'idle') {
+    if (state === "idle") {
       push(`/${params.roomId}/lobby`);
       return;
     } else {
@@ -66,7 +74,7 @@ const Home = ({ params }: { params: { roomId: string } }) => {
 
   useDataMessage({
     onMessage(payload, from, label) {
-      if (label === 'requestToSpeak') {
+      if (label === "requestToSpeak") {
         setShowAcceptRequest(true);
         setRequestedPeerId(from);
         addRequestedPeers(from);
@@ -75,7 +83,7 @@ const Home = ({ params }: { params: { roomId: string } }) => {
         }, 5000);
       }
 
-      if (label === 'chat' && from !== peerId) {
+      if (label === "chat" && from !== peerId) {
         const messagePayload = JSON.parse(payload);
         const newChatMessage = {
           name: messagePayload.name,
@@ -94,18 +102,33 @@ const Home = ({ params }: { params: { roomId: string } }) => {
   }, [requestedPeers]);
 
   return (
-    <section className='bg-audio flex h-screen items-center justify-center w-full relative  text-slate-100'>
-      <div className='flex items-center justify-center w-full'>
-        
+    <section className="bg-audio flex h-screen items-center justify-center w-full relative  text-slate-100">
+      <div className="flex items-center justify-center w-full">
         <GridLayout />
         <Sidebar />
-      
-        <div className='absolute right-4 bottom-20'>
+
+        <div className="absolute right-4 bottom-20">
           {showAcceptRequest && <AcceptRequest peerId={requestedPeerId} />}
         </div>
-        
       </div>
       {isChatOpen && <Chat />}
+
+      {/* Render Polling component based on visibility */}
+      {isPollingOpen && <Polling />}
+
+      {/* Button to toggle visibility of Polling component */}
+      <button onClick={() => setIsPollingOpen(!isPollingOpen)}>
+        Toggle Polling
+      </button>
+
+      {/* Render ViewPolls component based on visibility */}
+      {isViewPollsOpen && <ViewPolls />}
+
+      {/* Button to toggle visibility of ViewPolls component */}
+      <button onClick={() => setIsViewPollsOpen(!isViewPollsOpen)}>
+        Toggle View Polls
+      </button>
+
       <BottomBar />
       <Prompts />
     </section>
