@@ -21,13 +21,36 @@ const ViewPolls = () => {
   // Function to fetch poll data from Pinata using IPFS hash
   const fetchPollsFromIPFS = async () => {
     try {
-      const ipfsHash = 'YOUR_IPFS_HASH'; // Replace 'YOUR_IPFS_HASH' with the actual IPFS hash
-      const res = await axios.get(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
-      setPolls(res.data);
+        const res = await axios.get('https://api.pinata.cloud/data/pinList?status=pinned', {
+            headers: {
+              pinata_api_key: `76d92b17caf26289fe6c`,  
+              pinata_secret_api_key: `91d3521125be00147dc0ff64096ab8706c7533c236bfc9114a47618c5a470090`,
+            },
+        });
+
+        if (res.data.count > 0) {
+            // Get the first pinned item
+            const firstItem = res.data.rows[0];
+            // Extract the IPFS hash
+            const ipfsHash = firstItem.ipfs_pin_hash;
+
+            // Now fetch the actual data using the IPFS hash
+            const pollRes = await axios.get(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
+
+            // Return the fetched data
+            console.log(pollRes.data)
+            console.log(polls)
+            
+        } else {
+            console.error('No pinned items found on Pinata.');
+            return null;
+        }
     } catch (error) {
-      console.error('Error fetching polls from IPFS:', error);
+        console.error('Error fetching polls from IPFS:', error);
+        throw error; // Throw the error to be caught and handled by the caller
     }
-  };
+};
+
 
   useEffect(() => {
     fetchPollsFromIPFS();

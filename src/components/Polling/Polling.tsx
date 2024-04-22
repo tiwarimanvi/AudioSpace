@@ -33,7 +33,6 @@ const Polling = () => {
           'Content-Type': 'application/json',
         },
       });
-
       console.log('Poll data pinned to IPFS:', res.data);
       // You can handle the response here, maybe dispatch an action if you're using Redux
     } catch (error) {
