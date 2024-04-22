@@ -2,7 +2,7 @@ import React from 'react';
 import useChatScroll from '../Chat/ChatScroll';
 import Header from '../Sidebar/Header/Header';
 import { BasicIcons } from '@/assets/BasicIcons';
-
+import useStore from '@/store/slices';
 // Define the interface for a single poll
 interface IPoll {
   id: string;
@@ -14,6 +14,8 @@ const ViewPolls = () => {
   // Assuming useStore is your custom hook to fetch polls from your store
   // Replace useStore with your actual state management hook
   const polls: IPoll[] = []; // Fetch polls from your store here
+
+  const setIsViewPollsOpen = useStore((state) => state.setIsViewPollsOpen);
 
   // Ref for scrolling based on poll changes
   const ref = useChatScroll(polls);
@@ -31,7 +33,7 @@ const ViewPolls = () => {
         <Header
           title="View Polls"
           icon={BasicIcons.chat} // Use an appropriate polling icon here
-          onClose={() => {}}
+          onClose={() => setIsViewPollsOpen(false)}
         />
         {/* List of polls */}
         <div ref={ref} className="overflow-auto mt-2 flex-col h-full">

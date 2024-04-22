@@ -15,6 +15,7 @@ const Polling = () => {
   const [question, setQuestion] = useState<string>('');
   const [options, setOptions] = useState<string[]>(['', '']); // Initial options, adjust as needed
  
+  const setIsPollingOpen = useStore((state) => state.setIsPollingOpen);
   // Define addPoll function directly in the component
   const addPoll = (newPoll: IPoll) => {
     // You can implement the logic to add the new poll to the state here
@@ -63,12 +64,12 @@ const Polling = () => {
   };
 
   return (
-    <div className="w-1/4 h-4/5 p-2 mr-3 bg-[#191B1F] rounded-lg">
+    <div className="text-white w-1/4 h-4/5 p-2 mr-3 bg-[#191B1F] rounded-lg ">
       <div className="flex flex-col h-full">
         <Header
           title="Polling"
           icon={BasicIcons.chat} // Use an appropriate polling icon here
-          onClose={() => {}}
+          onClose={() => setIsPollingOpen(false)}
         />
         <div ref={ref} className="overflow-auto mt-2 flex-col h-full">
           {/* Polling form */}
