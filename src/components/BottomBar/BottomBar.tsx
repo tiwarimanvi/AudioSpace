@@ -36,6 +36,7 @@ const BottomBar: React.FC<BottomBarProps> = () => {
     },
   });
 
+  
   const sidebarView = useStore((state) => state.sidebar.sidebarView);
 
   const isChatOpen = useStore((state) => state.isChatOpen);
