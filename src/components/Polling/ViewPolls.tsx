@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import useChatScroll from '../Chat/ChatScroll';
 import Header from '../Sidebar/Header/Header';
 import { BasicIcons } from '@/assets/BasicIcons';
@@ -11,12 +12,26 @@ interface IPoll {
 }
 
 const ViewPolls = () => {
-  // Assuming useStore is your custom hook to fetch polls from your store
-  // Replace useStore with your actual state management hook
-  const polls: IPoll[] = []; // Fetch polls from your store here
+  // State to store fetched polls
+  const [polls, setPolls] = useState<IPoll[]>([]);
 
   // Ref for scrolling based on poll changes
   const ref = useChatScroll(polls);
+
+  // Function to fetch poll data from Pinata using IPFS hash
+  const fetchPollsFromIPFS = async () => {
+    try {
+      const ipfsHash = 'YOUR_IPFS_HASH'; // Replace 'YOUR_IPFS_HASH' with the actual IPFS hash
+      const res = await axios.get(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
+      setPolls(res.data);
+    } catch (error) {
+      console.error('Error fetching polls from IPFS:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPollsFromIPFS();
+  }, []); // Fetch polls only once when the component mounts
 
   // Function to handle voting on a poll
   const handleVote = (pollId: string, optionIndex: number) => {

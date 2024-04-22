@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Chat/Chat.tsx", "src/components/recording/startRecording.ts", "src/components/recording/stopRecording.ts", "src/components/recording/Recordinglogic.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Chat/Chat.tsx", "src/components/recording/startRecording.ts", "src/components/recording/stopRecording.ts", "src/components/recording/Recordinglogic.jsx", "src/components/Polling/Wrap.jsx"],
   "exclude": ["node_modules"]
 }

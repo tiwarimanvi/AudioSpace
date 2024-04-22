@@ -1,29 +1,48 @@
 import React, { useState } from 'react';
 import useChatScroll from '../Chat/ChatScroll';
 import { nanoid } from 'nanoid';
-import useStore from '@/store/slices';
+import axios from 'axios'; // Import Axios
 import { BasicIcons } from '@/assets/BasicIcons';
-import { useDataMessage } from '@huddle01/react/hooks';
 import Header from '../Sidebar/Header/Header';
 
 interface IPoll {
-    question: string;
-    options: string[];
-  }
+  question: string;
+  options: string[];
+}
 
 const Polling = () => {
   const [question, setQuestion] = useState<string>('');
-  const [options, setOptions] = useState<string[]>(['', '']); // Initial options, adjust as needed
- 
-  // Define addPoll function directly in the component
-  const addPoll = (newPoll: IPoll) => {
-    // You can implement the logic to add the new poll to the state here
-    console.log('Adding poll:', newPoll);
-    // For example, if you have a store, you can dispatch an action to add the poll:
-    // dispatch(addPollAction(newPoll));
+  const [options, setOptions] = useState<string[]>(['', '']);
+
+  const addPoll = async (newPoll: IPoll) => {
+    try {
+      const pollData = JSON.stringify(newPoll);
+      
+      const res = await axios({
+        method: 'post',
+        url: 'https://api.pinata.cloud/pinning/pinJSONToIPFS',
+        data: {
+          pinataMetadata: {
+            name: 'PollData.json' // You can change the name as needed
+          },
+          pinataContent: JSON.parse(pollData)
+        },
+        headers: {
+          pinata_api_key: `76d92b17caf26289fe6c`,  
+          pinata_secret_api_key: `91d3521125be00147dc0ff64096ab8706c7533c236bfc9114a47618c5a470090`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Poll data pinned to IPFS:', res.data);
+      // You can handle the response here, maybe dispatch an action if you're using Redux
+    } catch (error) {
+      console.error('Error pinning poll data to IPFS:', error);
+      // You can handle errors here, maybe display an error message to the user
+    }
   };
-  
-  const ref = useChatScroll(options); // Assuming options change triggers scroll
+
+  const ref = useChatScroll(options);
 
   const handleAddOption = () => {
     if (options.length < 4) {
@@ -46,14 +65,12 @@ const Polling = () => {
   };
 
   const handleCreatePoll = () => {
-    // Validate question and options
     if (question.trim() && options.every((option) => option.trim())) {
       const newPoll = {
         question: question.trim(),
         options: options.map((option) => option.trim()),
       };
       addPoll(newPoll);
-      // Reset form
       setQuestion('');
       setOptions(['', '']);
     } else {
@@ -67,11 +84,10 @@ const Polling = () => {
       <div className="flex flex-col h-full">
         <Header
           title="Polling"
-          icon={BasicIcons.chat} // Use an appropriate polling icon here
+          icon={BasicIcons.chat}
           onClose={() => {}}
         />
         <div ref={ref} className="overflow-auto mt-2 flex-col h-full">
-          {/* Polling form */}
           <div className="p-4">
             <input
               type="text"
