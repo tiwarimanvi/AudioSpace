@@ -37,20 +37,16 @@ const ViewPolls = () => {
             // Now fetch the actual data using the IPFS hash
             const pollRes = await axios.get(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
 
-            // Return the fetched data
-            console.log(pollRes.data)
-            console.log(polls)
-            
+            // Set the fetched data to state
+            setPolls([pollRes.data]);
         } else {
             console.error('No pinned items found on Pinata.');
-            return null;
         }
     } catch (error) {
         console.error('Error fetching polls from IPFS:', error);
         throw error; // Throw the error to be caught and handled by the caller
     }
 };
-
 
   useEffect(() => {
     fetchPollsFromIPFS();
@@ -62,6 +58,11 @@ const ViewPolls = () => {
     console.log('Vote:', pollId, 'Option:', optionIndex);
   };
 
+  // Function to handle manual refresh
+  const handleRefresh = () => {
+    fetchPollsFromIPFS();
+  };
+
   return (
     <div className="w-1/4 h-4/5 p-2 mr-3 bg-[#191B1F] rounded-lg">
       <div className="flex flex-col h-full">
@@ -71,6 +72,10 @@ const ViewPolls = () => {
           icon={BasicIcons.chat} // Use an appropriate polling icon here
           onClose={() => {}}
         />
+        {/* Refresh button */}
+        <button onClick={handleRefresh} className="mt-2 mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          Refresh
+        </button>
         {/* List of polls */}
         <div ref={ref} className="overflow-auto mt-2 flex-col h-full">
           {polls.map((poll: IPoll) => (
