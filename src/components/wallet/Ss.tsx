@@ -89,7 +89,7 @@ const Ss = ({ onClick }: SsProps) => {
         <button 
           onClick={handleClick} // Use handleClick instead of onClick directly
           // Disable button if isJoining
-          className='flex items-center justify-center bg-[#246BFD] text-slate-100 rounded-md p-2 mt-2 w-full'
+          className='flex items-center ml-5 w-72 justify-center bg-[#246BFD] text-slate-100 rounded-md p-2 mt-2 w-full'
         > Start Space
           <Image
             alt='narrow-right'

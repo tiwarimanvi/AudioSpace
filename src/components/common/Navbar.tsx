@@ -9,7 +9,7 @@ type NavbarProps = {};
 
 const Navbar: React.FC<NavbarProps> = () => {
   return (
-    <header className="border-b border-custom-1 w-full absolute top-0 left-0 h-16 flex items-center px-10 z-10 text-slate-100 justify-between">
+    <header className="border-b border-custom-1 w-full absolute top-0 left-0 h-16 flex items-center px-4 sm:px-10 z-10 text-slate-100 justify-between">
       <Image
         src="/images/Logo1.png"
         alt="logo"
@@ -19,9 +19,12 @@ const Navbar: React.FC<NavbarProps> = () => {
         quality={100}
         priority
       />
-      <ConnectWalletButton>
+       <div className="flex items-center">
+       <ConnectWalletButton>
       <HomePage/>
       </ConnectWalletButton>
+       </div>
+      
     </header>
   );
 };

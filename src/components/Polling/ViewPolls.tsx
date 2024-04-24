@@ -88,7 +88,7 @@ const ViewPolls = () => {
                   <input
                     type="radio"
                     id={`${poll.id}-${index}`}
-                    name={poll.id}
+                    name={poll.id} // Use poll.id as the name for the radio button group
                     value={option}
                     onChange={() => handleVote(poll.id, index)}
                   />
