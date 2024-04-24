@@ -36,10 +36,21 @@ const BottomBar: React.FC<BottomBarProps> = () => {
     },
   });
 
+  
   const sidebarView = useStore((state) => state.sidebar.sidebarView);
 
   const isChatOpen = useStore((state) => state.isChatOpen);
   const setIsChatOpen = useStore((state) => state.setIsChatOpen);
+
+  // toggle functions for Polling Feature start
+
+  const isPollingOpen = useStore((state) => state.isPollingOpen);
+  const setIsPollingOpen = useStore((state) => state.setIsPollingOpen);
+
+  const isViewPollsOpen = useStore((state) => state.isViewPollsOpen);
+  const  setIsViewPollsOpen = useStore((state) => state. setIsViewPollsOpen);
+
+  // toggle functions for Polling Feature ends
 
   const setSidebarView = useStore((state) => state.setSidebarView);
 
@@ -50,7 +61,7 @@ const BottomBar: React.FC<BottomBarProps> = () => {
   const [showLeaveDropDown, setShowLeaveDropDown] = useState<boolean>(false);
 
   return (
-    <div className="absolute bottom-6 w-full flex items-center px-10 justify-between">
+    <div className="absolute bottom-6 w-full flex items-center px-10 justify-between ">
       {/* Bottom Bar Left */}
       <div>
         {role === 'host' || role === 'coHost' || role === 'speaker' ? (
@@ -131,6 +142,13 @@ const BottomBar: React.FC<BottomBarProps> = () => {
             if (isChatOpen) {
               setIsChatOpen(false);
             }
+            if (isViewPollsOpen !== false) {
+              setIsViewPollsOpen(false);
+            }
+            if (isPollingOpen !== false) {
+              setIsPollingOpen(false);
+            }
+
           }}
         >
           {BasicIcons.peers}
@@ -139,6 +157,7 @@ const BottomBar: React.FC<BottomBarProps> = () => {
               .length + 1}
           </span>
         </OutlineButton>
+
         <OutlineButton
           className="ml-auto flex items-center gap-3"
           onClick={() => {
@@ -146,10 +165,55 @@ const BottomBar: React.FC<BottomBarProps> = () => {
             if (sidebarView !== 'close') {
               setSidebarView('close');
             }
+            if (isViewPollsOpen !== false) {
+              setIsViewPollsOpen(false);
+            }
+            if (isPollingOpen !== false) {
+              setIsPollingOpen(false);
+            }
           }}
         >
           {BasicIcons.chat}
         </OutlineButton>
+
+        {/* Polling button */}
+        <OutlineButton
+          className="ml-auto flex items-center gap-3"
+          onClick={() => {
+            setIsPollingOpen(!isPollingOpen);
+            if (sidebarView !== 'close') {
+              setSidebarView('close');
+            }
+            if (isChatOpen !== false) {
+              setIsChatOpen(false);
+            }
+            if (isViewPollsOpen !== false) {
+              setIsViewPollsOpen(false);
+            }
+          }}
+        >
+          {BasicIcons.chat}
+        </OutlineButton>
+
+        {/* View Polls Button  */}
+        <OutlineButton
+          className="ml-auto flex items-center gap-3"
+          onClick={() => {
+            setIsViewPollsOpen(!isViewPollsOpen);
+            if (sidebarView !== 'close') {
+              setSidebarView('close');
+            }
+            if (isChatOpen !== false) {
+              setIsChatOpen(false);
+            }
+            if (isPollingOpen !== false) {
+              setIsPollingOpen(false);
+            }
+          }}
+        >
+          {BasicIcons.chat}
+        </OutlineButton>
+
       </div>
     </div>
   );
