@@ -29,11 +29,7 @@ import { metadata } from "../layout";
 // import Chat from '@/components/Chat/Chat';
 
 const Home = ({ params }: { params: { roomId: string } }) => {
-  // State to manage visibility of the polling component
-  const [isPollingOpen, setIsPollingOpen] = useState<boolean>(false);
-  const [isViewPollsOpen, setIsViewPollsOpen] = useState<boolean>(false); // Initial visibility
-
-
+  
   const { state } = useRoom({
     onLeave: () => {
       push(`/${params.roomId}/lobby`);
@@ -50,6 +46,10 @@ const Home = ({ params }: { params: { roomId: string } }) => {
   const avatarUrl = useStore((state) => state.avatarUrl);
   const userDisplayName = useStore((state) => state.userDisplayName);
   const isChatOpen = useStore((state) => state.isChatOpen);
+  //polling feature
+  const isPollingOpen = useStore((state) => state.isPollingOpen);
+  const isViewPollsOpen = useStore((state) => state.isViewPollsOpen);
+
   const { updateMetadata, metadata, peerId, role } = useLocalPeer<{
     displayName: string;
     avatarUrl: string;
@@ -112,22 +112,9 @@ const Home = ({ params }: { params: { roomId: string } }) => {
         </div>
       </div>
       {isChatOpen && <Chat />}
-
-      {/* Render Polling component based on visibility */}
-      {isPollingOpen && <Polling />}
-
-      {/* Button to toggle visibility of Polling component */}
-      <button onClick={() => setIsPollingOpen(!isPollingOpen)}>
-        Toggle Polling
-      </button>
-
-      {/* Render ViewPolls component based on visibility */}
-      {isViewPollsOpen && <ViewPolls />}
-
-      {/* Button to toggle visibility of ViewPolls component */}
-      <button onClick={() => setIsViewPollsOpen(!isViewPollsOpen)}>
-        Toggle View Polls
-      </button>
+      {isPollingOpen && <Polling/>}
+      {isViewPollsOpen && <ViewPolls/>}
+     
 
       <BottomBar />
       <Prompts />

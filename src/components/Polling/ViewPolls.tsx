@@ -3,7 +3,7 @@ import axios from 'axios';
 import useChatScroll from '../Chat/ChatScroll';
 import Header from '../Sidebar/Header/Header';
 import { BasicIcons } from '@/assets/BasicIcons';
-
+import useStore from '@/store/slices';
 // Define the interface for a single poll
 interface IPoll {
   id: string;
@@ -14,6 +14,8 @@ interface IPoll {
 const ViewPolls = () => {
   // State to store fetched polls
   const [polls, setPolls] = useState<IPoll[]>([]);
+
+  const setIsViewPollsOpen = useStore((state) => state.setIsViewPollsOpen);
 
   // Ref for scrolling based on poll changes
   const ref = useChatScroll(polls);
@@ -70,7 +72,7 @@ const ViewPolls = () => {
         <Header
           title="View Polls"
           icon={BasicIcons.chat} // Use an appropriate polling icon here
-          onClose={() => {}}
+          onClose={() => setIsViewPollsOpen(false)}
         />
         {/* Refresh button */}
         <button onClick={handleRefresh} className="mt-2 mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">

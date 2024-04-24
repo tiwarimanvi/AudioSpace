@@ -79,7 +79,7 @@ const Polling = () => {
   };
 
   return (
-    <div className="w-1/4 h-4/5 p-2 mr-3 bg-[#191B1F] rounded-lg">
+    <div className="text-white w-1/4 h-4/5 p-2 mr-3 bg-[#191B1F] rounded-lg ">
       <div className="flex flex-col h-full">
         <Header
           title="Polling"
