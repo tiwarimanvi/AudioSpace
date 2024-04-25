@@ -133,7 +133,6 @@
 
 // export default Polling;
 
-
 import React, { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import { nanoid } from 'nanoid';
 import axios from 'axios'; // Import Axios
@@ -171,7 +170,6 @@ const Polling = () => {
         },
       });
       console.log('Poll data pinned to IPFS:', res.data);
-      // You can handle the response here, maybe dispatch an action if you're using Redux
     } catch (error) {
       console.error('Error pinning poll data to IPFS:', error);
       // You can handle errors here, maybe display an error message to the user
