@@ -3,6 +3,10 @@ import { StoreSlice } from '../types';
 export type TSidebarView = 'close' | 'peers';
 export type TPromptView = 'close' | 'request-to-speak';
 
+//polling feature 
+export type TPollingView = 'close' | 'polling';
+export type TViewPollsView = 'close' | 'view-polls';
+
 export interface IChatMessage {
   name: string;
   text: string;
@@ -17,6 +21,10 @@ export interface ISidebarState {
   promptView: TPromptView;
   avatarUrl: string;
   isChatOpen: boolean;
+  
+  isPollingOpen: boolean;   //modified
+  isViewPollsOpen: boolean; //modified
+
   isMyHandRaised: boolean;
   myReaction: string;
   requestedPeers: string[];
@@ -33,6 +41,10 @@ export interface ISidebarState {
   removeRequestedPeers: (val: string) => void;
   setUserDisplayName: (val: string) => void;
   setIsChatOpen: (val: boolean) => void;
+
+  setIsPollingOpen: (val: boolean) => void;   //modified
+  setIsViewPollsOpen: (val: boolean) => void; //modified
+
   setShowAcceptRequest: (val: boolean) => void;
 }
 
@@ -44,6 +56,10 @@ const createHandlerSlice: StoreSlice<ISidebarState> = (set, get) => ({
   avatarUrl: '/avatars/avatars/0.png',
   chatView: 'close',
   isChatOpen: false,
+
+  isPollingOpen:false, //modified
+  isViewPollsOpen:false,//modified
+
   promptView: 'close',
   isMyHandRaised: false,
   myReaction: '',
@@ -55,6 +71,19 @@ const createHandlerSlice: StoreSlice<ISidebarState> = (set, get) => ({
   setIsChatOpen: (chatOpen: boolean) => {
     set(() => ({
       isChatOpen: chatOpen,
+    }));
+  },
+  
+  //modified
+  setIsPollingOpen: (pollingOpen: boolean) => { 
+    set(() => ({
+      isPollingOpen: pollingOpen,
+    }));
+  },
+  //modified
+  setIsViewPollsOpen: (viewPollsOpen: boolean) => {
+    set(() => ({
+      isViewPollsOpen: viewPollsOpen,
     }));
   },
 
