@@ -137,10 +137,10 @@ const Lobby = ({ params }: { params: { roomId: string } }) => {
           </FeatCommon>
         </div>
         <div className='flex items-center w-full flex-col'>
-          <div className='flex flex-col justify-center w-full gap-1'>
+          <div className='flex flex-col ml-72 justify-center w-full gap-1'>
             Set a display name
-            <div className='flex w-full items-center rounded-[10px] border px-3 text-slate-300 outline-none border-zinc-800 backdrop-blur-[400px] focus-within:border-slate-600 gap-'>
-              <div className='mr-2'>
+            <div className='flex w-72 items-center rounded-[10px] -ml-20 border px-3 text-slate-300 outline-none border-zinc-800 backdrop-blur-[400px] focus-within:border-slate-600 gap-'>
+              <div className=''>
                 <Image
                   alt='user-icon'
                   src='/images/user-icon.svg'

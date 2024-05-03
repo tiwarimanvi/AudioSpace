@@ -272,6 +272,7 @@ import { nanoid } from 'nanoid';
 import axios from 'axios'; // Import Axios
 import { BasicIcons } from '@/assets/BasicIcons';
 import Header from '../Sidebar/Header/Header';
+import useStore from '@/store/slices';
 
 interface IPoll {
   question: string;
@@ -284,6 +285,7 @@ const Polling = () => {
 
   const optionRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  const setIsPollingOpen = useStore((state) => state.setIsPollingOpen);
   const addPoll = async (newPoll: IPoll) => {
     try {
       const pollData = JSON.stringify(newPoll);
@@ -388,7 +390,7 @@ const Polling = () => {
         <Header
           title="Polling"
           icon={BasicIcons.chat}
-          onClose={() => {}}
+          onClose={() =>setIsPollingOpen(false)}
         />
         <div className="overflow-auto mt-2 flex-col h-full">
           <div className="p-4">

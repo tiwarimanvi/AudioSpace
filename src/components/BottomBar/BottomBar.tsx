@@ -61,7 +61,7 @@ const BottomBar: React.FC<BottomBarProps> = () => {
   const [showLeaveDropDown, setShowLeaveDropDown] = useState<boolean>(false);
 
   return (
-    <div className="absolute bottom-6 w-full flex items-center px-10 justify-between ">
+    <div className="absolute bottom-6 w-full flex flex-col sm:flex-row items-center px-10 justify-centre ">
       {/* Bottom Bar Left */}
       <div>
         {role === 'host' || role === 'coHost' || role === 'speaker' ? (
@@ -78,7 +78,7 @@ const BottomBar: React.FC<BottomBarProps> = () => {
       </div>
 
       {/* Bottom Bar Center */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4  ">
         {role !== 'listener' &&
           (!isAudioOn ? (
             <button
@@ -132,7 +132,8 @@ const BottomBar: React.FC<BottomBarProps> = () => {
           />
         </Dropdown>
       </div>
-      <div className="flex items-center gap-4">
+      {/* Bottom Bar Left */}
+      <div className="flex items-center gap-4 ">
         {/* Bottom Bar Right */}
 
         <OutlineButton
